@@ -5,7 +5,7 @@ import org.apache.spark.sql.types._
 import org.apache.spark.sql.functions.{col, expr}
 
 object Example3_7 {
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
 
     val spark = SparkSession
       .builder
@@ -19,7 +19,8 @@ object Example3_7 {
     //get the path to the JSON file
     val jsonFile = args(0)
     //define our schema as before
-    val schema = StructType(Array(StructField("Id", IntegerType, false),
+    val schema = StructType(Array(
+      StructField("Id", IntegerType, false),
       StructField("First", StringType, false),
       StructField("Last", StringType, false),
       StructField("Url", StringType, false),
@@ -39,7 +40,7 @@ object Example3_7 {
     blogsDF.select(col("Hits") * 2).show(2)
     blogsDF.select(expr("Hits * 2")).show(2)
    // show heavy hitters
-   blogsDF.withColumn("Big Hitters", (expr("Hits > 10000"))).show()
+    blogsDF.withColumn("Big Hitters", (expr("Hits > 10000"))).show()
 
   }
 }
